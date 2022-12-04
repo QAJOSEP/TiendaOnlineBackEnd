@@ -6,6 +6,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "cliente")
@@ -15,20 +19,33 @@ public class Cliente {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idCliente;
 	
+	@NotNull(message = "No puede se puede dejar vacio")
+	@NotBlank(message = "El nombre es obligatorio")
+	@Size(min = 3, max =70, message = "Mínimo requiere tres caractéres")
 	@Column(name = "nombres", nullable = false, length = 70)
 	private String nombres;
 	
+	@NotNull
+	@NotBlank(message = "El apellido es obligatorio")
+	@Size(min = 3, max =150, message = "Mínimo requiere tres caractéres")
 	@Column(name = "apellidos", nullable = false, length = 150)
 	private String apellidos;
 	
+	@Size(max =150, message = "La dirección no debe superar los 150 caractéres")
 	@Column(name = "direccion", nullable = true, length = 150)
 	private String direccion;
 	
+	@Size(min = 8, message = "Debe tener al menos 8 dígitos")
 	@Column(name = "telefono", nullable = true, length = 10)
 	private String telefono;
 	
+	@NotNull
+	@NotBlank(message = "El email es obligatorio")
+	@Size(min = 10, max =150, message = "Mínimo requiere diez caractéres")
+	@Email(message = "El email no tiene un formato valido")
 	@Column(nullable = false, length = 150)
 	private String email;
+	
 
 	public Integer getIdCliente() {
 		return idCliente;
